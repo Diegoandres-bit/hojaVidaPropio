@@ -1,0 +1,14 @@
+.title{
+    background-color: black;
+    color: white;    
+    border-radius: 30px;
+    margin: 20px auto;
+}
+
+.experiencialaboralgray{
+    background-color: gray;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
