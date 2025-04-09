@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guardar Inputs en Cookies</title>
+  <script>
+    // Función para establecer una cookie
+    function setCookie(name, value, days) {
+      let expires = "";
+      if (days) {
+        let date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // días * horas * minutos * segundos * milisegundos
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    // Función para comprobar si todos los inputs están llenos
+    function checkInputs() {
+      // Obtén los valores de los 5 inputs
+      let input1 = document.getElementById('input1').value;
+      let input2 = document.getElementById('input2').value;
+      let input3 = document.getElementById('input3').value;
+      let input4 = document.getElementById('input4').value;
+      let input5 = document.getElementById('input5').value;
+
+      // Comprobar si todos los inputs están llenos
+      if (input1 && input2 && input3 && input4 && input5) {
+        // Si todos están llenos, guarda la información en cookies
+        setCookie('input1', input1, 7);
+        setCookie('input2', input2, 7);
+        setCookie('input3', input3, 7);
+        setCookie('input4', input4, 7);
+        setCookie('input5', input5, 7);
+        alert('Información guardada en las cookies');
+      }
+    }
+
+    // Función para cargar los valores de las cookies (opcional)
+    function loadCookies() {
+      let input1 = getCookie('input1');
+      let input2 = getCookie('input2');
+      let input3 = getCookie('input3');
+      let input4 = getCookie('input4');
+      let input5 = getCookie('input5');
+
+      if (input1) document.getElementById('input1').value = input1;
+      if (input2) document.getElementById('input2').value = input2;
+      if (input3) document.getElementById('input3').value = input3;
+      if (input4) document.getElementById('input4').value = input4;
+      if (input5) document.getElementById('input5').value = input5;
+    }
+
+    // Función para obtener el valor de una cookie por su nombre
+    function getCookie(name) {
+      let nameEQ = name + "=";
+      let ca = document.cookie.split(';');
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      }
+      return null;
+    }
+
+    // Ejecutar la función cuando la página se haya cargado
+    window.onload = function() {
+      // Cargar cookies si existen
+      loadCookies();
+
+      // Detectar cambios en los inputs
+      document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', checkInputs); // Escucha cambios en los inputs
+      });
+    };
+  </script>
+</head>
+<body>
+  <h1>Guardar los valores de los Inputs en Cookies</h1>
+
+  <form>
+    <label for="input1">Input 1:</label>
+    <input type="text" id="input1"><br><br>
+    
+    <label for="input2">Input 2:</label>
+    <input type="text" id="input2"><br><br>
+    
+    <label for="input3">Input 3:</label>
+    <input type="text" id="input3"><br><br>
+    
+    <label for="input4">Input 4:</label>
+    <input type="text" id="input4"><br><br>
+    
+    <label for="input5">Input 5:</label>
+    <input type="text" id="input5"><br><br>
+  </form>
+</body>
+</html>

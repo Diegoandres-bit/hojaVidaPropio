@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/archivo.css">
-    <script type="text/javascript" src="js/experiencialaboral.js"></script>
+    <script type="text/javascript" src="js/tiempototalexp.js"></script>
     <title>HojaVida</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -33,30 +33,30 @@
         </div><br>
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <div class="container">
-                    <div class="row w-100">
-                        <div class="col-3">
-                            <a class="nav-link" href="index.html" id="hov">Datos Personales</a>
-                        </div>
-                        <div class="col-3">
-                            <a class="nav-link" href="formacionacademica.html" id="hov">Formación Académica</a>
-                        </div>
-                        <div class="col-3">
-                            <a class="nav-link" href="experiencialaboral.html" id="hov">Experiencia Laboral</a>
-                        </div>
-                        <div class="col-3">
-                            <a class="nav-link" href="tiempototalexperiencia.html" id="hov">Experiencia Total</a>
-                        </div>
-                       
-                </div>
-            </div>
-        </nav>
-
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav w-100">
+                <li class="nav-item col-3">
+                    <a class="nav-link" href="index.php" id="hov">Datos Personales</a>
+                </li>
+                <li class="nav-item col-2">
+                    <a class="nav-link" href="formacionacademica.php" id="hov">Formación Académica</a>
+                </li>
+                <li class="nav-item col-2">
+                    <a class="nav-link" href="experiencialaboral.php" id="hov">Experiencia Laboral</a>
+                </li>
+                <li class="nav-item col-2">
+                    <a class="nav-link" href="tiempototalexperiencia.php" id="hov">Experiencia Total</a>
+                </li>
+                <li class="nav-item col-3">
+                    <a class="nav-link" href="mandar.php" id="hov">Mandar Datos</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
 
         <div>
@@ -81,7 +81,7 @@
 
         <div class="row mt-2">
             <div class="col-md-6">Servidor Público</div>
-            <div class="col-md-3">                                
+            <div class="col-md-3">
                 <input type="text" class="form-control" id="aniosServidorPublico" placeholder="Años">
             </div>
             <div class="col-md-3">
@@ -122,13 +122,19 @@
 
         <div class="row">
             <div class="col-sm-12 text-center">
-                <button type="button" class="btn btn-primary" onclick="calcularAnios()">Calcular Total</button>                
+                <button type="button" class="btn btn-primary" onclick="calcularAnios()">Calcular Total</button>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
-            <a href="http://localhost/ParcialHojaDeVida/experiencialaboral.php" class="btn btn-primary" role="button">Anterior</a>  
+                <a href="http://localhost/ParcialHojaDeVida/experiencialaboral.php" class="btn btn-primary" role="button">Anterior</a>
+                <button type="button" class="btn btn-danger" onclick="persistenciaAnos()">Guardar datos</button>
+                <a  href="http://localhost/ParcialHojaDeVida/mandar.php" class="btn btn-primary" role="button" type="submit" >Siguiente</a> 
+                
             </div>
+        </div>
+
+        <div class="obtenerDatos" id="porDefinirse">
         </div>
 
 

@@ -11,7 +11,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
-<body onload="cargaInicial()">
+<body onload="cargaInicial(),cargarDatosPersonales()"  id="body">
     <div class="col-sm-12 text-center border">
         <h1>Hoja de Vida</h1>
     </div>
@@ -33,31 +33,30 @@
         </div><br>
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <div class="container">
-                    <div class="row w-100">
-                        <div class="col-3">
-                            <a class="nav-link" href="index.html" id="hov">Datos Personales</a>
-                        </div>
-                        <div class="col-3">
-                            <a class="nav-link" href="formacionacademica.html" id="hov">Formación Académica</a>
-                        </div>
-                        <div class="col-3">
-                            <a class="nav-link" href="experiencialaboral.html" id="hov">Experiencia Laboral</a>
-                        </div>
-                        <div class="col-3">
-                            <a class="nav-link" href="tiempototalexperiencia.html" id="hov">Experiencia Total</a>
-                        </div>
-                 
-                    
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav w-100">
+                <li class="nav-item col-3">
+                    <a class="nav-link" href="index.php" id="hov">Datos Personales</a>
+                </li>
+                <li class="nav-item col-2">
+                    <a class="nav-link" href="formacionacademica.php" id="hov">Formación Académica</a>
+                </li>
+                <li class="nav-item col-2">
+                    <a class="nav-link" href="experiencialaboral.php" id="hov">Experiencia Laboral</a>
+                </li>
+                <li class="nav-item col-2">
+                    <a class="nav-link" href="tiempototalexperiencia.php" id="hov">Experiencia Total</a>
+                </li>
+                <li class="nav-item col-3">
+                    <a class="nav-link" href="mandar.php" id="hov">Mandar Datos</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
 
 
@@ -190,7 +189,7 @@
                     <h6>FECHA Y LUGAR DE NACIMIENTO</h6>
                     <div class="form-group">
                         <label for="fecha_nacimiento">FECHA</label>
-                        <input type="date" class="form-control" id="fecha_nacimiento">
+                        <input type="date" class="form-control" id="fecha_nacimiento" max="2024-12-31" min="1970-01-01">
                     </div>
                     <div class="form-group">
                         <label for="pais_nacimiento">PAÍS</label>
@@ -246,10 +245,11 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <button type="button" class="btn btn-primary" onclick="obtenerDatos()">Obtener Datos</button>
+            <a role="button" class="btn btn-danger" onclick="persistencia()">Guardar Datos</a>
                 <button type="button" class="btn btn-primary" onclick="agregarContenido()">agregarContenido</button>
-                <a href="http://localhost/ParcialHojaDeVida/formacionacademica.php" class="btn btn-primary" role="button">Siguiente</a> 
-             </div>
+                <a  href="http://localhost/ParcialHojaDeVida/formacionacademica.php" class="btn btn-primary" role="button" type="submit" >Siguiente</a> 
+                
+            </div>
         </div>
 
         <div class="agregarContenido" id="agregarContenido">
