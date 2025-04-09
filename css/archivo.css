@@ -12,3 +12,9 @@
     align-items: center;
     justify-content: center;
 }
+
+#hov:hover{
+   background-color: rgb(185, 236, 255);
+   opacity: 0.5;
+   transition: 2.5s;
+}

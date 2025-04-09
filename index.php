@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/archivo.css">
+    <script type="text/javascript" src="js/index.js"></script>
     <title>HojaVida</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
-<body>
+<body onload="cargaInicial()">
     <div class="col-sm-12 text-center border">
         <h1>Hoja de Vida</h1>
     </div>
@@ -39,24 +40,20 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="container">
                     <div class="row w-100">
-                        <div class="col-2">
-                            <a class="nav-link" href="index.html">Datos Personales</a>
+                        <div class="col-3">
+                            <a class="nav-link" href="index.html" id="hov">Datos Personales</a>
                         </div>
-                        <div class="col-2">
-                            <a class="nav-link" href="formacionacademica.html">Formación Académica</a>
+                        <div class="col-3">
+                            <a class="nav-link" href="formacionacademica.html" id="hov">Formación Académica</a>
                         </div>
-                        <div class="col-2">
-                            <a class="nav-link" href="experiencialaboral.html">Experiencia Laboral</a>
+                        <div class="col-3">
+                            <a class="nav-link" href="experiencialaboral.html" id="hov">Experiencia Laboral</a>
                         </div>
-                        <div class="col-2">
-                            <a class="nav-link" href="tiempototalexperiencia.html">Experiencia Total</a>
+                        <div class="col-3">
+                            <a class="nav-link" href="tiempototalexperiencia.html" id="hov">Experiencia Total</a>
                         </div>
-                        <div class="col-2">
-                            <a class="nav-link" href="firmaservidorpublico.html">Firma Funcionario</a>
-                        </div>
-                        <div class="col-2">
-                            <a class="nav-link" href="observacionesjefe.html">Observaciones RRHH</a>
-                        </div>
+                 
+                    
                     </div>
                 </div>
             </div>
@@ -78,84 +75,84 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label for="usr">PRIMER APELLIDO:</label>
-                        <input type="text" class="form-control" id="usr">
+                        <label for="primer_apellido">PRIMER APELLIDO:</label>
+                        <input type="text" class="form-control" id="primer_apellido">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label for="usr">SEGUNDO APELLIDO (O DE CASADA):</label>
-                        <input type="text" class="form-control" id="usr">
+                        <label for="segundo_apellido">SEGUNDO APELLIDO (O DE CASADA):</label>
+                        <input type="text" class="form-control" id="segundo_apellido">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label for="usr">NOMBRES</label>
-                        <input type="text" class="form-control" id="usr">
+                        <label for="nombres">NOMBRES</label>
+                        <input type="text" class="form-control" id="nombres">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-5">
                     <div class="form-group">
-                        <label for="usr">DOCUMENTO DE IDENTIFICACION</label> <br>
+                        <label>DOCUMENTO DE IDENTIFICACION</label> <br>
                         <div class="d-inline-block">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="optidentificacion" id="ccRadio"
-                                    checked>
+                                <input class="form-check-input" type="radio" name="optidentificacion" id="ccRadio" value="CC">
                                 <label class="form-check-label" for="ccRadio">C.C</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="optidentificacion" id="ceRadio">
+                                <input class="form-check-input" type="radio" name="optidentificacion" id="ceRadio" value="CE">
                                 <label class="form-check-label" for="ceRadio">C.E</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="optidentificacion" id="pasRadio">
+                                <input class="form-check-input" type="radio" name="optidentificacion" id="pasRadio" value="PAS">
                                 <label class="form-check-label" for="pasRadio">PAS</label>
                             </div>
-                            <input type="text" class="form-control-inline" id="usr">
+                            <input type="text" class="form-control-inline" id="docNumber">
                         </div>
-
                     </div>
                 </div>
 
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="usr">SEXO</label> <br>
+                        <label>SEXO</label> <br>
                         <div class="d-inline-block">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="optsexo" id="ccRadio" checked>
-                                F<label class="form-check-label" for="ccRadio"></label>
+                                <input class="form-check-input" type="radio" name="optsexo" id="femaleRadio" value="Femenino">
+                                F<label class="form-check-label" for="femaleRadio"></label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="optsexo" id="ceRadio">
-                                M<label class="form-check-label" for="ceRadio"></label>
+                                <input class="form-check-input" type="radio" name="optsexo" id="maleRadio" value="Masculino">
+                                M<label class="form-check-label" for="maleRadio"></label>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label for="usr">NACIONALIDAD</label> <br>
+                        <label for="nacionalidad">NACIONALIDAD</label> <br>
                         <div class="d-inline-block">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="optnacionalidad" id="ccRadio"
-                                    checked>
-                                COL<label class="form-check-label" for="ccRadio"></label>
+                                <input class="form-check-input" type="radio" name="optnacionalidad" id="colRadio" value="Colombiano"                                   >
+                                COL<label class="form-check-label" for="colRadio"></label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="optnacionalidad" id="ceRadio">
-                                EXTRANJERO<label class="form-check-label" for="ceRadio"></label>
+                                <input class="form-check-input" type="radio" name="optnacionalidad" id="extRadio" value="Extranjero">
+                                EXTRANJERO<label class="form-check-label" for="extRadio"></label>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
-                        <label for="usr">PAIS</label>
-                        <input type="text" class="form-control" id="usr">
+                        <label for="pais_nacionalidad">PAÍS</label>
+                        <select class="paises form-control" id="pais_nacionalidad">
+                            <option value="">Seleccione</option>
+                        </select>
                     </div>
                 </div>
+
             </div>
 
             <div class="row align-items-center">
@@ -164,26 +161,26 @@
                         <label for="libreta">LIBRETA MILITAR</label> <br>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="optlibreta" id="primeraClase"
-                                value="primera">
-                            <label class="form-check-label" for="primeraClase">PRIMERA CLASE</label>
+                                value="Si">
+                            <label class="form-check-label" for="primeraClase">SI</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="optlibreta" id="segundaClase"
-                                value="segunda">
-                            <label class="form-check-label" for="segundaClase">SEGUNDA CLASE</label>
+                                value="No">
+                            <label class="form-check-label" for="segundaClase">NO</label>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label for="numero">NÚMERO</label> <br>
-                        <input type="text" class="form-control" id="numero">
+                        <label for="numeroLibreta">NÚMERO</label> <br>
+                        <input type="text" class="form-control" id="numeroLibreta">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label for="dm">D.M</label> <br>
-                        <input type="text" class="form-control" id="dm">
+                        <label for="dmLibreta">D.M</label> <br>
+                        <input type="text" class="form-control" id="dmLibreta">
                     </div>
                 </div>
             </div>
@@ -192,34 +189,25 @@
                 <div class="col-sm-6">
                     <h6>FECHA Y LUGAR DE NACIMIENTO</h6>
                     <div class="form-group">
-                        <label for="fecha">FECHA</label>
-                        <input type="date" class="form-control" id="fechaNacimiento">
+                        <label for="fecha_nacimiento">FECHA</label>
+                        <input type="date" class="form-control" id="fecha_nacimiento">
                     </div>
                     <div class="form-group">
-                        <label for="pais">PAÍS</label>
-                        <select class="form-control" id="pais">
-                            <option value="">Seleccione un país</option>
-                            <option value="Colombia">Colombia</option>
-                            <option value="Perú">Perú</option>
-                            <option value="Ecuador">Ecuador</option>
+                        <label for="pais_nacimiento">PAÍS</label>
+                        <select class="paises form-control" id="pais_nacimiento">
+                            <option value="">Seleccione</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="depto">DEPTO</label>
-                        <select class="form-control" id="depto">
+                        <label for="depto_nacimiento">DEPTO</label>
+                        <select class="departamentos form-control" id="depto_nacimiento">
                             <option value="">Seleccione un departamento</option>
-                            <option value="Quindio">Quindio</option>
-                            <option value="Risaralda">Risaralda</option>
-                            <option value="Caldas">Caldas</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="municipio">MUNICIPIO</label>
-                        <select class="form-control" id="municipio">
+                        <label for="municipio_nacimiento">MUNICIPIO</label>
+                        <select class="municipios form-control" id="municipio_nacimiento">
                             <option value="">Seleccione un municipio</option>
-                            <option value="Armenia">Armenia</option>
-                            <option value="Pereira">Pereira</option>
-                            <option value="Manizales">Manizales</option>
                         </select>
                     </div>
                 </div>
@@ -227,30 +215,21 @@
                 <div class="col-sm-6">
                     <h6>DIRECCIÓN DE CORRESPONDENCIA</h6>
                     <div class="form-group">
-                        <label for="paisCorrespondencia">PAÍS</label>
-                        <select class="form-control" id="paisCorrespondencia">
+                        <label for="pais_correspondencia">PAÍS</label>
+                        <select class="paises form-control" id="pais_correspondencia">
                             <option value="">Seleccione un país</option>
-                            <option value="Colombia">Colombia</option>
-                            <option value="Perú">Perú</option>
-                            <option value="Ecuador">Ecuador</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="deptoCorrespondencia">DEPTO</label>
-                        <select class="form-control" id="deptoCorrespondencia">
+                        <label for="depto_correspondencia">DEPTO</label>
+                        <select class="departamentos form-control" id="depto_correspondencia">
                             <option value="">Seleccione un departamento</option>
-                            <option value="Quindio">Quindio</option>
-                            <option value="Risaralda">Risaralda</option>
-                            <option value="Caldas">Caldas</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="municipioCorrespondencia">MUNICIPIO</label>
-                        <select class="form-control" id="municipioCorrespondencia">
+                        <label for="municipio_correspondencia">MUNICIPIO</label>
+                        <select class="municipios form-control" id="municipio_correspondencia">
                             <option value="">Seleccione un municipio</option>
-                            <option value="Armenia">Armenia</option>
-                            <option value="Pereira">Pereira</option>
-                            <option value="Manizales">Manizales</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -265,6 +244,18 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="button" class="btn btn-primary" onclick="obtenerDatos()">Obtener Datos</button>
+                <button type="button" class="btn btn-primary" onclick="agregarContenido()">agregarContenido</button>
+                <a href="http://localhost/ParcialHojaDeVida/formacionacademica.php" class="btn btn-primary" role="button">Siguiente</a> 
+             </div>
+        </div>
+
+        <div class="agregarContenido" id="agregarContenido">
+
+
+        </div>        
     </div>
     </div>
 
