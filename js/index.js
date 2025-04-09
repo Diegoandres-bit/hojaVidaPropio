@@ -1,10 +1,3 @@
-(function () {
-    //alert("Ready Dom!!!");
-    console.log(" Cargando Noticias");
-    paises = new Array();
-    departamentos = new Array();
-    municipios = new Array();
-})();
 
 function cargaInicial() {
     const url = "https://restcountries.com/v3.1/all";
@@ -22,6 +15,7 @@ function obtenerPaises(data) {
     console.log(data);
     console.log("tamano :" + data.length);
     let index = 0;
+    let paises = [];
     data.forEach(element => {
         let pais = {
             id: index,
@@ -29,7 +23,7 @@ function obtenerPaises(data) {
             region: element.region,
             continente: element.continents[0]
         };
-        //paises[index] = pais;
+        paises[index] = pais;
         if (pais.name != "Surinami" && pais.name != "French Guiana" && pais.name != "Falkland Island") {
             paises.push(pais);
             index += 1;
@@ -63,6 +57,24 @@ function obtenerDepartamentos(data) {
         data.forEach(object => {
             let option = new Option(object.departamento, object.id);
             select.appendChild(option);
+        });
+    });
+}
+
+function obtenerMunicipios(data) {
+    console.log("mostrando departamentos");
+    console.log(data);
+    let selects = document.querySelectorAll(".municipios");  // Selecciona todos los elementos 'select' con la clase 'departamentos'
+
+    selects.forEach(select => {
+        data.forEach(object => {
+            let option = new Option(object.name, object.id);
+            select.appendChild(option);
+
+            object.ciudades.forEach(ciudad => {
+                let option = new Option(ciudad, ciudad);
+                select.appendChild(option);
+            });
         });
     });
 }
@@ -114,30 +126,8 @@ function booleanLibretaMilitar() {
         return null;
     }
 }
+function almacenaDatos() {
 
-
-
-
-function obtenerMunicipios(data) {
-    console.log("mostrando departamentos");
-    console.log(data);
-    let selects = document.querySelectorAll(".municipios");  // Selecciona todos los elementos 'select' con la clase 'departamentos'
-
-    selects.forEach(select => {
-        data.forEach(object => {
-            let option = new Option(object.name, object.id);
-            select.appendChild(option);
-
-            object.ciudades.forEach(ciudad => {
-                let option = new Option(ciudad, ciudad);
-                select.appendChild(option);
-            });
-        });
-    });
-}
-
-function obtenerDatos() {
-    index = 0;
     var primerApellido = document.getElementById("primer_apellido").value;
     var segundoApellido = document.getElementById("segundo_apellido").value;
     var nombres = document.getElementById("nombres").value;
@@ -154,20 +144,6 @@ function obtenerDatos() {
     esColombiano = booleanColombiano();
     tipoIdentificacion = obtenerTiposIdentificacion();
     tieneLibretaMilitar = booleanLibretaMilitar();
-
-
-    var ccRadio = document.getElementById('ccRadio');
-    var ceRadio = document.getElementById('ceRadio');
-    var pasRadio = document.getElementById('pasRadio');
-
-    var femaleRadio = document.getElementById('femaleRadio');
-    var maleRadio = document.getElementById('maleRadio');
-
-    var colRadio = document.getElementById('colRadio');
-    var extRadio = document.getElementById('extRadio');
-
-    var primeraClase = document.getElementById('primeraClase');
-    var segundaClase = document.getElementById('segundaClase');
 
     let pais_naci = document.getElementById('pais_nacionalidad');
     let paisNacionalidad = pais_naci.options[pais_naci.selectedIndex].text
@@ -191,6 +167,302 @@ function obtenerDatos() {
     let municipioCorrespondencia = muni_corre.options[muni_corre.selectedIndex].text
 
     var fechaNacimiento = document.getElementById('fecha_nacimiento').value;
+    validadorDatosPersonales();
+    let datos_personales = {
+        primerApellido: primerApellido,
+        segundoApellido: segundoApellido,
+        nombres: nombres,
+        documento: documento,
+        numeroLibreta: numeroLibreta,
+        dmLibreta: dmLibreta,
+        telefono: telefono,
+        email: email,
+        sexo: sexo,
+        esColombiano: esColombiano,
+        tipoIdentificacion: tipoIdentificacion,
+        tieneLibretaMilitar: tieneLibretaMilitar,
+        paisNacionalidad: paisNacionalidad,
+        paisNacimiento: paisNacimiento,
+        deptoNacimiento: deptoNacimiento,
+        municipioNacimiento: municipioNacimiento,
+        paisCorrespondencia: paisCorrespondencia,
+        deptoCorrespondencia: deptoCorrespondencia,
+        municipioCorrespondencia: municipioCorrespondencia,
+        fechaNacimiento: fechaNacimiento
+    }
+        let datos_json = JSON.stringify(datos_personales)
+        console.log(validarObjeto(datos_personales))
+        console.log(datos_json)
+        document.cookie = "datos_personalesalm=" + datos_json + "; max-age=" + (7 * 24 * 60 * 60) + "; path=/ParcialHojaDeVida/; domain=localhost;"
+    
+}
+
+
+function persistencia() {
+    
+    var primerApellido = document.getElementById("primer_apellido").value;
+    var segundoApellido = document.getElementById("segundo_apellido").value;
+    var nombres = document.getElementById("nombres").value;
+
+    var documento = parseInt(document.getElementById("docNumber").value);
+
+    var numeroLibreta = parseInt(document.getElementById("numeroLibreta").value);
+    var dmLibreta = document.getElementById("dmLibreta").value;
+    var telefono = document.getElementById("telefono").value;
+    var email = document.getElementById("email").value;
+
+
+    sexo = obtenerSexo();
+    esColombiano = booleanColombiano();
+    tipoIdentificacion = obtenerTiposIdentificacion();
+    tieneLibretaMilitar = booleanLibretaMilitar();
+
+    let pais_naci = document.getElementById('pais_nacionalidad');
+    let paisNacionalidad = pais_naci.options[pais_naci.selectedIndex].text
+
+    let pais = document.getElementById('pais_nacimiento');
+    let paisNacimiento = pais.options[pais.selectedIndex].text
+
+    let depto = document.getElementById('depto_nacimiento');
+    let deptoNacimiento = depto.options[depto.selectedIndex].text
+
+    let muni = document.getElementById('municipio_nacimiento');
+    let municipioNacimiento = muni.options[muni.selectedIndex].text
+
+    let pais_corre = document.getElementById('pais_correspondencia');
+    let paisCorrespondencia = pais_corre.options[pais_corre.selectedIndex].text
+
+    let depto_corre = document.getElementById('depto_correspondencia');
+    let deptoCorrespondencia = depto_corre.options[depto_corre.selectedIndex].text
+
+    let muni_corre = document.getElementById('municipio_correspondencia');
+    let municipioCorrespondencia = muni_corre.options[muni_corre.selectedIndex].text
+
+    var fechaNacimiento = document.getElementById('fecha_nacimiento').value;
+    let datos_personales = {
+        primerApellido: primerApellido,
+        segundoApellido: segundoApellido,
+        nombres: nombres,
+        documento: documento,
+        numeroLibreta: numeroLibreta,
+        dmLibreta: dmLibreta,
+        telefono: telefono,
+        email: email,
+        sexo: sexo,
+        esColombiano: esColombiano,
+        tipoIdentificacion: tipoIdentificacion,
+        tieneLibretaMilitar: tieneLibretaMilitar,
+        paisNacionalidad: paisNacionalidad,
+        paisNacimiento: paisNacimiento,
+        deptoNacimiento: deptoNacimiento,
+        municipioNacimiento: municipioNacimiento,
+        paisCorrespondencia: paisCorrespondencia,
+        deptoCorrespondencia: deptoCorrespondencia,
+        municipioCorrespondencia: municipioCorrespondencia,
+        fechaNacimiento: fechaNacimiento
+    }
+    if (validarObjeto(datos_personales) && validadorDatosPersonales()) {
+        let datos_json = JSON.stringify(datos_personales)
+        console.log(validarObjeto(datos_personales))
+        console.log(datos_json)
+        document.cookie = "datos_personales=" + datos_json + "; max-age=" + (7 * 24 * 60 * 60) + "; path=/ParcialHojaDeVida/ ; domain=localhost;"
+    }
+}
+function activarsex(valor) {
+    if (valor === "Masculino") {
+        document.getElementById("maleRadio").checked = true
+    } else if (valor === "Femenino") {
+        document.getElementById("femaleRadio").checked = true
+    }
+}
+function activaresCol(valor) {
+    if (valor === "Colombiano") {
+        document.getElementById("colRadio").checked = true
+    } else if (valor === "Extranjero") {
+        document.getElementById("extRadio").checked = true
+    }
+
+}
+function activarTipoID(valor) {
+    if (valor === "CC") {
+        document.getElementById("ccRadio").checked = true
+    } else if (valor === "CE") {
+        document.getElementById("ceRadio").checked = true
+    } else if (valor === "PAS") {
+        document.getElementById("pasRadio").checked = true
+    }
+}
+function activarLibreta(valor) {
+    if (valor === "Si") {
+        document.getElementById("primeraClase").checked = true
+    } else if (valor === "No") {
+        document.getElementById("segundaClase").checked = true
+    }
+}
+function indexselect(valor) {
+    let pais_naci = document.getElementById('pais_nacionalidad');
+
+    if (pais_naci.options[i].text === valor) {
+        return i
+    }
+
+}
+
+
+
+function validadorDatosPersonales() {
+    const a = /[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/;
+    const limitescedula = /\d{10,16}/g;
+    const cedula = document.getElementById('docNumber').value;
+    const cedulaVAli = cedula.match(limitescedula);
+    const email = document.getElementById('email').value;
+
+    console.log(cedulaVAli);
+    if (!cedula.match(limitescedula)) {
+        alert("la cedula no cumple con los digitos necesarios 10-16")
+        return false;
+    }
+    if (!email.toUpperCase().match(a)) {
+        alert("el correo no es valido")
+        return false;
+    }
+    return true;
+}
+window.addEventListener('unload', function () {
+    almacenaDatos();
+});
+function cargarDatosPersonales() {
+
+    let datosJson = getCookie('datos_personalesalm');
+    
+    if (datosJson) {
+        let datosPersonales = JSON.parse(datosJson);
+        document.getElementById("primer_apellido").value = datosPersonales.primerApellido;
+        document.getElementById("segundo_apellido").value = datosPersonales.segundoApellido;
+        document.getElementById("nombres").value = datosPersonales.nombres;
+        document.getElementById("docNumber").value = datosPersonales.documento;
+        document.getElementById("numeroLibreta").value = datosPersonales.numeroLibreta;
+        document.getElementById("dmLibreta").value = datosPersonales.dmLibreta;
+        document.getElementById("telefono").value = datosPersonales.telefono;
+        document.getElementById("email").value = datosPersonales.email;
+        activarsex(datosPersonales.sexo);
+        activaresCol(datosPersonales.esColombiano);
+        activarTipoID(datosPersonales.tipoIdentificacion);
+        activarLibreta(datosPersonales.tieneLibretaMilitar)
+
+        let pais_naci = document.getElementById('pais_nacionalidad');
+        pais_naci.options[pais_naci.selectedIndex].text = datosPersonales.paisNacionalidad;
+
+        let pais = document.getElementById('pais_nacimiento');
+        let paisNacimiento = pais.options[pais.selectedIndex].text = datosPersonales.paisNacimiento;
+
+        let depto = document.getElementById('depto_nacimiento');
+        let deptoNacimiento = depto.options[depto.selectedIndex].text = datosPersonales.deptoNacimiento;
+
+        let muni = document.getElementById('municipio_nacimiento');
+        let municipioNacimiento = muni.options[muni.selectedIndex].text = datosPersonales.municipioNacimiento;
+
+        let pais_corre = document.getElementById('pais_correspondencia');
+        let paisCorrespondencia = pais_corre.options[pais_corre.selectedIndex].text = datosPersonales.paisCorrespondencia;
+
+        let depto_corre = document.getElementById('depto_correspondencia');
+        let deptoCorrespondencia = depto_corre.options[depto_corre.selectedIndex].text = datosPersonales.deptoCorrespondencia
+
+        let muni_corre = document.getElementById('municipio_correspondencia');
+        let municipioCorrespondencia = muni_corre.options[muni_corre.selectedIndex].text = datosPersonales.municipioCorrespondencia;
+
+        document.getElementById('fecha_nacimiento').value = datosPersonales.fechaNacimiento;
+
+    } else {
+        alert('No se encontraron datos guardados');
+    }
+}
+
+function getCookie(nombre) {
+    let nombre_ig = nombre + "=";
+    let split_cookie = document.cookie.split(';');
+    for (let i = 0; i < split_cookie.length; i++) {
+        let valor = split_cookie[i];
+        while (valor.charAt(0) == ' ') valor = valor.substring(1, valor.length);
+        if (valor.indexOf(nombre_ig) == 0) return valor.substring(nombre_ig.length, valor.length);
+    }
+    return null;
+}
+
+function validarObjeto(obj) {
+    console.log(obj.tieneLibretaMilitar);
+    const camposVacios = [];
+    if (obj.tieneLibretaMilitar === null || obj.tieneLibretaMilitar === undefined || obj.tieneLibretaMilitar === "") {
+        alert("Debe seleccionar si tienes libreta militar o no.");
+        return false;
+    }
+
+    if (obj.tieneLibretaMilitar === "Si") {
+        for (const [key, value] of Object.entries(obj)) {
+            if (value === null || value === undefined || value === "" || (typeof value === "string" && value.trim() === "")) {
+                camposVacios.push(key);
+            }
+        }
+    } else if (obj.tieneLibretaMilitar === "No" && (obj.numeroLibreta || obj.dmLibreta)) {
+        alert("Estás seleccionando que no tienes libreta militar, pero has llenado el campo de número o DM de libreta militar.");
+        return false;
+    }
+
+    if (camposVacios.length > 0) {
+        alert("Debe diligenciar todos los campos: " + camposVacios.join(", "));
+        return false;
+    }
+
+    return true;
+}
+
+
+
+
+
+function obtenerDatos() {
+    index = 0;
+    var primerApellido = document.getElementById("primer_apellido").value.trim();
+    var segundoApellido = document.getElementById("segundo_apellido").value.trim();
+    var nombres = document.getElementById("nombres").value.trim();
+
+    var documento = parseInt(document.getElementById("docNumber").value.trim());
+
+    var numeroLibreta = parseInt(document.getElementById("numeroLibreta").value.trim());
+    var dmLibreta = document.getElementById("dmLibreta").value;
+    var telefono = document.getElementById("telefono").value.trim();
+    var email = document.getElementById("email").value.trim();
+
+
+    sexo = obtenerSexo();
+    esColombiano = booleanColombiano();
+    tipoIdentificacion = obtenerTiposIdentificacion();
+    tieneLibretaMilitar = booleanLibretaMilitar();
+
+    let pais_naci = document.getElementById('pais_nacionalidad');
+    let paisNacionalidad = pais_naci.options[pais_naci.selectedIndex].text
+
+    let pais = document.getElementById('pais_nacimiento');
+    let paisNacimiento = pais.options[pais.selectedIndex].text
+
+    let depto = document.getElementById('depto_nacimiento');
+    let deptoNacimiento = depto.options[depto.selectedIndex].text
+
+    let muni = document.getElementById('municipio_nacimiento');
+    let municipioNacimiento = muni.options[muni.selectedIndex].text
+
+    let pais_corre = document.getElementById('pais_correspondencia');
+    let paisCorrespondencia = pais_corre.options[pais_corre.selectedIndex].text
+
+    let depto_corre = document.getElementById('depto_correspondencia');
+    let deptoCorrespondencia = depto_corre.options[depto_corre.selectedIndex].text
+
+    let muni_corre = document.getElementById('municipio_correspondencia');
+    let municipioCorrespondencia = muni_corre.options[muni_corre.selectedIndex].text
+
+    var fechaNacimiento = document.getElementById('fecha_nacimiento').value;
+
+
 
     let html = `
     <div class="row">
@@ -375,35 +647,6 @@ function obtenerDatos() {
     `
     index += 1;
     pushHTML(html);
-
-
-
-
-
-    console.log("Fecha de Nacimiento: " + fechaNacimiento);
-    console.log("Pais Nacimiento: " + paisNacimiento);
-    console.log("Departamento Nacimiento: " + deptoNacimiento);
-    console.log("Municipio Nacimiento: " + municipioNacimiento);
-    console.log("Pais Correspondencia: " + paisCorrespondencia);
-    console.log("Departamento Correspondencia: " + deptoCorrespondencia);
-    console.log("Municipio Correspondencia: " + municipioCorrespondencia);
-    console.log("Documento Identificación - CC: " + ccRadio.checked);
-    console.log("Documento Identificación - CE: " + ceRadio.checked);
-    console.log("Documento Identificación - PAS: " + pasRadio.checked);
-    console.log("Sexo - Femenino: " + femaleRadio.checked);
-    console.log("Sexo - Masculino: " + maleRadio.checked);
-    console.log("Nacionalidad - COL: " + colRadio.checked);
-    console.log("Nacionalidad - EXTRANJERO: " + extRadio.checked);
-    console.log("Libreta Militar - Primera Clase: " + primeraClase.checked);
-    console.log("Libreta Militar - Segunda Clase: " + segundaClase.checked);
-    console.log(primerApellido);
-    console.log(segundoApellido);
-    console.log(nombres);
-    console.log(documento);
-    console.log(numeroLibreta);
-    console.log(dmLibreta);
-    console.log(telefono);
-    console.log(email);
 }
 
 function agregarContenido() {
